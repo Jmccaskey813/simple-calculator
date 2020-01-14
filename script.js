@@ -1,22 +1,44 @@
 const calculator = document.querySelector('.grid');
 const keys = document.querySelector('.keys');
 const display = document.querySelector('.display');
+
+//create object for numbers
 let a;
 let aValue= false;
 let b;
 let bValue= false;
-let operator;
+let numA;
+let numB;
+let final;
+
+
+
 
 keys.addEventListener('click', e=>{
+    
     let calculateNums = ()=>{
+        
         if (aValue === true && bValue === false){
             b = displayedNum;
             bValue= true;
-            let result = Math.floor(parseInt(a) + operator + parseInt(b))
-            displayedNum = result;
-            console.log(result);
+            numA= parseFloat(a);
+            numB= parseFloat(b);
+            let equation = a + operator + b;
+            let result = equation
+            .split('')    
+            .forEach(i => {
+                if (i === '*') final = numA * numB;
+                 if (i === '/') final = numA / numB;
+                 if (i === '+') final = numA + numB;
+                 if (i === '-') final = numA - numB; 
+                 return final;
+             });
+            
+            displayedNum = final;
+            display.textContent = final;
+            
         }
-       }
+       };
        
 
     if (e.target.matches('button')){
@@ -24,6 +46,12 @@ keys.addEventListener('click', e=>{
         const action = key.dataset.action;
         const keyContent = key.textContent;
         var displayedNum = display.textContent 
+        if (action === 'clear'){
+            display.textContent= '0';
+            displayedNum  = '0';
+            aValue = false;
+            bValue = false;
+        }
         if (action === 'decimal') display.textContent = displayedNum + '.';
         if (!action ) {
             (displayedNum === '0' || displayedNum === '')? display.textContent = keyContent 
@@ -31,7 +59,7 @@ keys.addEventListener('click', e=>{
             // console.log(displayedNum) 
         }
         if (action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide' ){
-            operator = keyContent;
+            operator = key.value;
              if (aValue === false){
                  a= displayedNum;
                  aValue= true;
