@@ -1,0 +1,1 @@
+basic vanilla js calculator. Just open up index.html in your browser and calculate away

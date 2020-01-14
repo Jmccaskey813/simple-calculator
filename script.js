@@ -12,7 +12,7 @@ let numB;
 let final;
 
 
-
+//can add multiple decimal points
 
 keys.addEventListener('click', e=>{
     
